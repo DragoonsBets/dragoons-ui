@@ -7,6 +7,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+        {/* Sentry Integration */}
+        <script src="https://cdn.ravenjs.com/3.26.2/raven.min.js" crossorigin="anonymous"></script>
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Dragoons X with React</h1>
         </header>
