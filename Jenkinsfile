@@ -52,14 +52,20 @@ pipeline {
         }
       }
     }
-    stage('SCM') {
-      git 'https://github.com/DragoonsBets/dragoons-ui.git'
-    }
-    stage('SonarQube analysis') {
-      // requires SonarQube Scanner 2.8+
-      def scannerHome = tool 'SonarQube Scanner 3.2';
-      withSonarQubeEnv('My SonarQube Server') {
-        sh "${scannerHome}/bin/sonar-scanner"
+    node {
+      stage('SCM') {
+        steps {
+          git 'https://github.com/DragoonsBets/dragoons-ui.git'
+        }
+      }
+      stage('SonarQube analysis') {
+        steps {
+          // requires SonarQube Scanner 2.8+
+          def scannerHome = tool 'SonarQube Scanner 3.2';
+          withSonarQubeEnv('My SonarQube Server') {
+            sh "${scannerHome}/bin/sonar-scanner"
+          }
+        }
       }
     }
     stage("Quality Gate") {
