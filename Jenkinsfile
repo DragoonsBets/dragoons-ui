@@ -52,8 +52,7 @@ pipeline {
         }
       }
     }
-    node {
-      stage('SCM') {
+    stage('SCM') {
         steps {
           git 'https://github.com/DragoonsBets/dragoons-ui.git'
         }
@@ -66,7 +65,6 @@ pipeline {
             sh "${scannerHome}/bin/sonar-scanner"
           }
         }
-      }
     }
     stage("Quality Gate") {
         steps {
