@@ -36,7 +36,7 @@ pipeline {
             scannerHome = tool 'SQScanner32'
         }
         steps {
-            withSonarQubeEnv('sonarqube') {
+            withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
                 sh "${scannerHome}/bin/sonar-scanner"
             }
             timeout(time: 10, unit: 'MINUTES') {
