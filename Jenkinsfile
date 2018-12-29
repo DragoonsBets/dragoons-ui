@@ -39,7 +39,7 @@ pipeline {
           container('nodejs') {
             withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
                 sh "${scannerHome}/bin/sonar-scanner" +
-                " -Dsonar.projectVersion=$BRANCH_NAME-build $BUILD_NUMBER"
+                " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
             }
             timeout(time: 10, unit: 'MINUTES') {
                 // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
