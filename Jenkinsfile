@@ -30,6 +30,21 @@ pipeline {
         }
       }
     }
+    stage('Code Quality - SonarQube') {
+        environment {
+            // This has to be the name of the scanner configured in Global Settings Jenkins
+            scannerHome = tool 'SQScanner32'
+        }
+        steps {
+            withSonarQubeEnv('sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+            timeout(time: 10, unit: 'MINUTES') {
+                // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
     stage('Build Release') {
       when {
         branch 'master'
@@ -51,30 +66,6 @@ pipeline {
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
         }
       }
-    }
-    stage('SCM') {
-        steps {
-          git 'https://github.com/DragoonsBets/dragoons-ui.git'
-        }
-      }
-      stage('SonarQube analysis') {
-        steps {
-          // requires SonarQube Scanner 2.8+
-          scannerHome = tool 'SonarQube Scanner 3.2';
-          withSonarQubeEnv('My SonarQube Server') {
-            sh "${scannerHome}/bin/sonar-scanner"
-          }
-        }
-    }
-    stage("Quality Gate") {
-        steps {
-            timeout(time: 1, unit: 'HOURS') {
-                // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                // true = set pipeline to UNSTABLE, false = don't
-                // Requires SonarQube Scanner for Jenkins 2.7+
-                waitForQualityGate abortPipeline: true
-            }
-        }
     }
     stage('Promote to Environments') {
       when {
