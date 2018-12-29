@@ -34,7 +34,7 @@ pipeline {
         environment {
             // This has to be the name of the scanner configured in Global Settings Jenkins
             scannerHome = tool 'SQScanner32'
-            projectVersion = $PREVIEW_VERSION
+            sonar.projectVersion = "$BUILD_NUMBER"
         }
         steps {
             withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
