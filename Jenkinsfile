@@ -34,13 +34,11 @@ pipeline {
         environment {
             // This has to be the name of the scanner configured in Global Settings Jenkins
             scannerHome = tool 'SQScanner32'
-            PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
         }
         steps {
             withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
                 sh "${scannerHome}/bin/sonar-scanner" +
-                " -Dsonar.projectVersion=$PREVIEW_VERSION"
-                // Another option is $BUILD_NUMBER
+                " -Dsonar.projectVersion=$BRANCH_NAME-$BUILD_NUMBER"
             }
             timeout(time: 10, unit: 'MINUTES') {
                 // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
