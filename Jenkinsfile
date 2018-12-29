@@ -6,7 +6,6 @@ pipeline {
     ORG = 'dragoonsbets'
     APP_NAME = 'dragoons-ui'
     CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
-    sonar.projectVersion = '1.0.0'
   }
   stages {
     stage('CI Build and push snapshot') {
