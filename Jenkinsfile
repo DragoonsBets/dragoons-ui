@@ -60,7 +60,19 @@ pipeline {
           sh "git config --global credential.helper store"
           sh "jx step git credentials"
 
-          // so we can retrieve the version in later steps
+          // Start Sentry Release
+          sh "npm install @sentry/cli"
+          sh "export SENTRY_AUTH_TOKEN=..."
+          sh "export SENTRY_ORG=dragoons"
+          sh "VERSION=$(sentry-cli releases propose-version)"
+
+          // Create a release
+          sh 'sentry-cli releases new -p dragoons-ui $VERSION'
+
+          // Associate commits with the release
+          sh 'sentry-cli releases set-commits --auto $VERSION'
+
+          // now that we are not in a detached head we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
           sh "jx step tag --version \$(cat VERSION)"
           sh "npm install"
