@@ -30,24 +30,24 @@ pipeline {
         }
       }
     }
-    // stage('Code Quality - SonarQube') {
-    //     environment {
-    //         // This has to be the name of the scanner configured in Global Settings Jenkins
-    //         scannerHome = tool 'SQScanner32'
-    //     }
-    //     steps {
-    //       container('nodejs') {
-    //         withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
-    //             sh "${scannerHome}/bin/sonar-scanner" +
-    //             " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
-    //         }
-    //         timeout(time: 10, unit: 'MINUTES') {
-    //             // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
-    //             waitForQualityGate abortPipeline: true
-    //         }
-    //       }
-    //     }
-    // }
+    stage('Code Quality') {
+        environment {
+            // This has to be the name of the scanner configured in Global Settings Jenkins
+            scannerHome = tool 'SQScanner32'
+        }
+        steps {
+          container('nodejs') {
+            withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
+                sh "${scannerHome}/bin/sonar-scanner" +
+                " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
+            }
+            timeout(time: 10, unit: 'MINUTES') {
+                // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
+                waitForQualityGate abortPipeline: true
+            }
+          }
+        }
+    }
     stage('Build Release') {
       when {
         branch 'master'
@@ -62,14 +62,11 @@ pipeline {
 
           // Start Sentry Release
           sh "npm install @sentry/cli"
-          // sh "echo \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) > SENTRY_RELEASE"
-
-
 
           // now that we are not in a detached head we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
+
           // Create a release for Sentry
-          // sh "./node_modules/@sentry/cli/sentry-cli releases -o dragoons new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui  --log-level debug"
           sh "./node_modules/@sentry/cli/sentry-cli releases new \$(cat VERSION) --project dragoons-ui"
 
           // Associate commits with the release
