@@ -62,11 +62,11 @@ pipeline {
 
           // Start Sentry Release
           sh "npm install @sentry/cli"
-          sh "echo \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) > SENTRY_RELEASE"
+          // sh "echo \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) > SENTRY_RELEASE"
 
           // Create a release
           // sh "./node_modules/@sentry/cli/sentry-cli releases -o dragoons new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui  --log-level debug"
-          sh "./node_modules/@sentry/cli/sentry-cli releases new \$(cat SENTRY_RELEASE) --project dragoons-ui"
+          sh "./node_modules/@sentry/cli/sentry-cli releases new \$(cat VERSION) --project dragoons-ui"
 
           // Associate commits with the release
           // sh "./node_modules/@sentry/cli/sentry-cli releases set-commits --auto \$(cat SENTRY_RELEASE)"
