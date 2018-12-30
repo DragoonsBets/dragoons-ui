@@ -30,24 +30,24 @@ pipeline {
         }
       }
     }
-    stage('Code Quality - SonarQube') {
-        environment {
-            // This has to be the name of the scanner configured in Global Settings Jenkins
-            scannerHome = tool 'SQScanner32'
-        }
-        steps {
-          container('nodejs') {
-            withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
-                sh "${scannerHome}/bin/sonar-scanner" +
-                " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
-            }
-            timeout(time: 10, unit: 'MINUTES') {
-                // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
-                waitForQualityGate abortPipeline: true
-            }
-          }
-        }
-    }
+    // stage('Code Quality - SonarQube') {
+    //     environment {
+    //         // This has to be the name of the scanner configured in Global Settings Jenkins
+    //         scannerHome = tool 'SQScanner32'
+    //     }
+    //     steps {
+    //       container('nodejs') {
+    //         withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
+    //             sh "${scannerHome}/bin/sonar-scanner" +
+    //             " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
+    //         }
+    //         timeout(time: 10, unit: 'MINUTES') {
+    //             // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
+    //             waitForQualityGate abortPipeline: true
+    //         }
+    //       }
+    //     }
+    // }
     stage('Build Release') {
       when {
         branch 'master'
@@ -65,7 +65,7 @@ pipeline {
           sh "export SENTRY_AUTH_TOKEN=fede6d6d756243ff9fc1cb367b4a017ddc3e02ade02a40fc92277f73cc4b2c00"
           sh "export SENTRY_ORG=Dragoons"
           sh "export SENTRY_LOG_LEVEL=debug"
-          sh "export \$REL_VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
+          sh "export REL_VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
 
           // Create a release
           sh "./node_modules/@sentry/cli/sentry-cli releases new \$REL_VERSION --project dragoons-ui"
