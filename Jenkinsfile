@@ -62,13 +62,15 @@ pipeline {
 
           // Start Sentry Release
           sh "npm install @sentry/cli"
-          sh "export SENTRY_AUTH_TOKEN=fede6d6d756243ff9fc1cb367b4a017ddc3e02ade02a40fc92277f73cc4b2c00"
-          sh "export SENTRY_ORG=Dragoons"
+          // sh "export SENTRY_AUTH_TOKEN="
+          // sh "export SENTRY_ORG=Dragoons"
+          // sh "export SENTRY_URL=https://sentry.drogon.dragoons.io"
           // sh "export SENTRY_LOG_LEVEL=debug"
           // sh "export REL_VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
 
           // Create a release
-          sh "./node_modules/@sentry/cli/sentry-cli releases -o dragoons new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui  --log-level debug"
+          // sh "./node_modules/@sentry/cli/sentry-cli releases -o dragoons new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui  --log-level debug"
+          sh "./node_modules/@sentry/cli/sentry-cli releases new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui"
 
           // Associate commits with the release
           sh "./node_modules/@sentry/cli/sentry-cli releases set-commits --auto $REL_VERSION"
