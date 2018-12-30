@@ -62,16 +62,15 @@ pipeline {
 
           // Start Sentry Release
           sh "npm install @sentry/cli"
-          sh "PATH ./node_modules/@sentry/cli/sentry-cli:\$PATH"
           sh "export SENTRY_AUTH_TOKEN=fede6d6d756243ff9fc1cb367b4a017ddc3e02ade02a40fc92277f73cc4b2c00"
           sh "export SENTRY_ORG=dragoons"
-          sh "VERSION=\$(sentry-cli releases propose-version)"
+          sh "VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
 
           // Create a release
-          sh 'entry-cli releases new -p dragoons-ui \$VERSION'
+          sh './node_modules/@sentry/cli/sentry-cli releases new -p dragoons-ui \$VERSION'
 
           // Associate commits with the release
-          sh 'sentry-cli releases set-commits --auto \$VERSION'
+          sh './node_modules/@sentry/cli/sentry-cli releases set-commits --auto \$VERSION'
 
           // now that we are not in a detached head we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
