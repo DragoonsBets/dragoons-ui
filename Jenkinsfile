@@ -63,7 +63,7 @@ pipeline {
           // Start Sentry Release
           sh "npm install @sentry/cli"
           sh "export SENTRY_AUTH_TOKEN=fede6d6d756243ff9fc1cb367b4a017ddc3e02ade02a40fc92277f73cc4b2c00"
-          sh "export SENTRY_ORG=dragoons"
+          sh "export SENTRY_ORG=Dragoons"
           sh "export \$REL_VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
 
           // Create a release
