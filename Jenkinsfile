@@ -69,7 +69,7 @@ pipeline {
           sh "./node_modules/@sentry/cli/sentry-cli releases new \$(cat SENTRY_RELEASE) --project dragoons-ui"
 
           // Associate commits with the release
-          sh "./node_modules/@sentry/cli/sentry-cli releases set-commits --auto \$(cat SENTRY_RELEASE)"
+          // sh "./node_modules/@sentry/cli/sentry-cli releases set-commits --auto \$(cat SENTRY_RELEASE)"
 
           // now that we are not in a detached head we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
