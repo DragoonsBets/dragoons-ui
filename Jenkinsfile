@@ -67,7 +67,7 @@ pipeline {
           sh "VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
 
           // Create a release
-          sh './node_modules/@sentry/cli/sentry-cli releases new -p dragoons-ui \$VERSION'
+          sh './node_modules/@sentry/cli/sentry-cli releases new \$VERSION -p dragoons-ui'
 
           // Associate commits with the release
           sh './node_modules/@sentry/cli/sentry-cli releases set-commits --auto \$VERSION'
