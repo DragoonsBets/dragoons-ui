@@ -64,13 +64,13 @@ pipeline {
           sh "npm install @sentry/cli"
           sh "export SENTRY_AUTH_TOKEN=..."
           sh "export SENTRY_ORG=dragoons"
-          sh "VERSION=$(sentry-cli releases propose-version)"
+          sh "VERSION=\$(sentry-cli releases propose-version)"
 
           // Create a release
-          sh 'sentry-cli releases new -p dragoons-ui $VERSION'
+          sh 'sentry-cli releases new -p dragoons-ui \$VERSION'
 
           // Associate commits with the release
-          sh 'sentry-cli releases set-commits --auto $VERSION'
+          sh 'sentry-cli releases set-commits --auto \$VERSION'
 
           // now that we are not in a detached head we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
