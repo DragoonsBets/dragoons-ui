@@ -64,15 +64,17 @@ pipeline {
           sh "npm install @sentry/cli"
           // sh "echo \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) > SENTRY_RELEASE"
 
-          // Create a release
+
+
+          // now that we are not in a detached head we can retrieve the version in later steps
+          sh "echo \$(jx-release-version) > VERSION"
+          // Create a release for Sentry
           // sh "./node_modules/@sentry/cli/sentry-cli releases -o dragoons new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui  --log-level debug"
           sh "./node_modules/@sentry/cli/sentry-cli releases new \$(cat VERSION) --project dragoons-ui"
 
           // Associate commits with the release
           // sh "./node_modules/@sentry/cli/sentry-cli releases set-commits --auto \$(cat SENTRY_RELEASE)"
 
-          // now that we are not in a detached head we can retrieve the version in later steps
-          sh "echo \$(jx-release-version) > VERSION"
           sh "jx step tag --version \$(cat VERSION)"
           sh "npm install"
           sh "CI=true DISPLAY=:99 npm test"
