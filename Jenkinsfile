@@ -68,7 +68,7 @@ pipeline {
           // sh "export REL_VERSION=\$(./node_modules/@sentry/cli/sentry-cli releases propose-version)"
 
           // Create a release
-          sh "./node_modules/@sentry/cli/sentry-cli releases new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui -o dragoons --log-level debug"
+          sh "./node_modules/@sentry/cli/sentry-cli releases -o dragoons new \$(./node_modules/@sentry/cli/sentry-cli releases propose-version) --project dragoons-ui  --log-level debug"
 
           // Associate commits with the release
           sh "./node_modules/@sentry/cli/sentry-cli releases set-commits --auto $REL_VERSION"
