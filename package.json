@@ -14,11 +14,17 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "coverageReporters": ["lcov"],
+    "testResultsProcessor": "jest-sonar-reporter",
+    "coverageReporters": [
+      "lcov"
+    ],
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**"
     ]
+  },
+  "devDependencies": {
+    "jest-sonar-reporter": "^2.0.0"
   }
 }
