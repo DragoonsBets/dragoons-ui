@@ -10,7 +10,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --coverage --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "coverageReporters": ["lcov"],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
   }
 }
