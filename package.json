@@ -10,7 +10,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --env=jsdom --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js && codecov",
+    "test": "react-scripts test --coverage --env=jsdom --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
     "eject": "react-scripts eject"
   },
   "jest": {
@@ -24,7 +24,6 @@
     ]
   },
   "devDependencies": {
-    "codecov": "^3.1.0",
     "jest-sonar-reporter": "^2.0.0"
   },
   "jestSonar": {
