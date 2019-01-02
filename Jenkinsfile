@@ -37,6 +37,7 @@ pipeline {
         }
         steps {
           container('nodejs') {
+            sh "CI=true DISPLAY=:99 npm test"
             withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
                 sh "${scannerHome}/bin/sonar-scanner" +
                 " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
