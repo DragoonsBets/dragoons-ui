@@ -10,11 +10,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --env=jsdom",
+    "test": "react-scripts test --coverage --env=jsdom && codecov",
     "eject": "react-scripts eject"
   },
   "jest": {
-    "testResultsProcessor": "jest-sonar-reporter",
     "coverageReporters": [
       "lcov"
     ],
@@ -25,6 +24,7 @@
     ]
   },
   "devDependencies": {
+    "codecov": "^3.1.0",
     "jest-sonar-reporter": "^2.0.0"
   }
 }
