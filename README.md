@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/DragoonsBets/dragoons-ui/branch/master/graph/badge.svg)](https://codecov.io/gh/DragoonsBets/dragoons-ui)
+
 # React Quickstart
 
 * This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
