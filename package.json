@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sentry/cli": "^1.37.2",
     "ajv": "^6.6.2",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
