@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/pablo/LocalDoc/Programacion/DRAGOON/dragoons-core/dragoons-ui/src/main/components/App.test.js">
+    <testCase name="renders without crashing" duration="34"/>
+  </file>
+</testExecutions>
