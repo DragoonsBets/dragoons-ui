@@ -39,7 +39,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
         resources:
+      imagePullSecrets:
+      - name: jenkins-docker-cfg
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-imagePullSecrets:
-- name: jenkins-docker-cfg
