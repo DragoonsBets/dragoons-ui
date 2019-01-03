@@ -102,6 +102,7 @@ pipeline {
   }
   post {
         always {
+          junit 'test_results/*.xml'
           cleanWs()
         }
   }
