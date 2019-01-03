@@ -42,4 +42,4 @@ spec:
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
 imagePullSecrets:
-- name: ibm-cloud-registry
+- name: jenkins-docker-cfg
