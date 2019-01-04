@@ -6,8 +6,7 @@ image:
   repository: draft
   tag: dev
   pullPolicy: IfNotPresent
-  imagePullSecrets:
-  - name: jenkins-docker-cfg
+  imagePullSecrets: jenkins-docker-cfg
 service:
   name: dragoons-ui
   type: ClusterIP
