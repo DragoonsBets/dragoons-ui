@@ -6,6 +6,8 @@ metadata:
     draft: {{ default "draft-app" .Values.draft }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
+  imagePullSecrets:
+  - name: {{ .Values.image.imagePullSecrets }}
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
@@ -17,6 +19,8 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
+      imagePullSecrets:
+      - name: {{ .Values.image.imagePullSecrets }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -38,8 +42,6 @@ spec:
           periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
-      imagePullSecrets:
-      - name: {{ .Values.image.imagePullSecrets }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
