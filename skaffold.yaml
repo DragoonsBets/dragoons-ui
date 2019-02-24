@@ -5,7 +5,7 @@ build:
     envTemplate:
       template: "{{.DOCKER_REGISTRY}}/dragoonsbets/dragoons-ui:{{.VERSION}}"
   artifacts:
-  - imageName: changeme
+  - imageName: drg-img
     workspace: .
     docker: {}
   local: {}
