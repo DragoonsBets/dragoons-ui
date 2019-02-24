@@ -11,7 +11,7 @@ class App extends Component {
           <h1 className="App-title">Dragoons UI with React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/components/App.js</code> and save to reload.
+          To get started, edit <code>src/components/App.js</code> and save to reload. This is our UI.
         </p>
       </div>
     );
