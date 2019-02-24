@@ -30,6 +30,24 @@ pipeline {
         }
       }
     }
+    stage('Code Quality') {
+        environment {
+            // This has to be the name of the scanner configured in Global Settings Jenkins
+            scannerHome = tool 'SQScanner32'
+        }
+        steps {
+          container('nodejs') {
+            withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
+                sh "${scannerHome}/bin/sonar-scanner" +
+                " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
+            }
+            timeout(time: 10, unit: 'MINUTES') {
+                // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
+                waitForQualityGate abortPipeline: true
+            }
+          }
+        }
+    }
     stage('Build Release') {
       when {
         branch 'master'
@@ -57,27 +75,8 @@ pipeline {
           sh "jx step tag --version \$(cat VERSION)"
           sh "npm install"
           sh "CI=true DISPLAY=:99 npm test"
-          sh "ls coverage/lcov-report/"
           sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
-        }
-      }
-    }
-    stage('Code Quality') {
-      environment {
-          // This has to be the name of the scanner configured in Global Settings Jenkins
-          scannerHome = tool 'SQScanner32'
-      }
-      steps {
-        container('nodejs') {
-          withSonarQubeEnv('SonarQube 7.4 Com - Dragoons') {
-              sh "${scannerHome}/bin/sonar-scanner" +
-              " -Dsonar.projectVersion=$BRANCH_NAME-build-$BUILD_NUMBER"
-          }
-          timeout(time: 10, unit: 'MINUTES') {
-              // Will halt the pipeline until SonarQube notifies Jenkins whether quality gate is passed through webhook setup earlier
-              waitForQualityGate abortPipeline: true
-          }
         }
       }
     }
@@ -102,7 +101,6 @@ pipeline {
   }
   post {
         always {
-          // junit 'test_results/*.xml'
           cleanWs()
         }
   }
