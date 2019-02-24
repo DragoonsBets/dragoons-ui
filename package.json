@@ -36,12 +36,12 @@
     "react": "^16.3.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.2",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --env=jsdom --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js && codecov",
+    "test": "react-scripts test --coverage --env=jsdom --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
     "eject": "react-scripts eject"
   },
   "jest": {
@@ -85,15 +85,12 @@
     ]
   },
   "devDependencies": {
-    "codecov": "^3.1.0",
     "jest-sonar-reporter": "^2.0.0"
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+  "jestSonar": {
+    "sonar56x": false,
+    "reportPath": "test_results",
+    "reportFile": "sonar-report.xml",
+    "indent": 4
   }
 }
