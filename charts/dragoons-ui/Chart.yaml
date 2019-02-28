@@ -1,21 +1,21 @@
 apiVersion: v1
+appVersion: 0.1.0
 description: Dragoons User UI
 icon: https://dragoons.io/assets/img/logo_vsmall.png
-name: dragoons-ui
-version: 0.1.0
-appVersion: 0.1.0
 keywords:
 - dragoons
 - drg
 - drg-ui
+maintainers:
+- email: pgarcia@dragoons.io
+  name: pablog12
+- email: eorsi@dragoons.io
+  name: orsiemilio
+- email: halbano@dragoons.io
+  name: halbano
+- email: gnardone@dragoons.io
+  name: gnardone
+name: dragoons-ui
 sources:
 - https://github.com/DragoonsBets/dragoons-ui
-maintainers:
-- name: pablog12
-  email: pgarcia@dragoons.io
-- name: orsiemilio
-  email: eorsi@dragoons.io
-- name: halbano
-  email: halbano@dragoons.io
-- name: gnardone
-  email: gnardone@dragoons.io
+version: 0.0.68
